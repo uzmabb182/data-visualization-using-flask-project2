@@ -1,4 +1,4 @@
-Name,Population,Median Age,Household Income,Per Capita Income,Poverty Count,Poverty Rate,Unemployment Rate,County,State
+Name,Population,Median_Age,Household_Income,Per_Capita_Income,Poverty_Count,Poverty_Rate,Unemployment_Rate,County,State
 "Fayette County, Illinois",21565.0,41.9,46650.0,23194.0,3421.0,15.863667980524,2.434500347785764,Fayette County, Illinois
 "Logan County, Illinois",29003.0,40.1,57308.0,27546.0,2323.0,8.009516256938937,2.5445643554115094,Logan County, Illinois
 "Saline County, Illinois",23994.0,42.2,44090.0,25342.0,4936.0,20.571809619071434,3.4008502125531384,Saline County, Illinois
