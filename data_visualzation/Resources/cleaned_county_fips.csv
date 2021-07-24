@@ -1,4 +1,4 @@
-Fips,County,State_Abbr,State
+fips_code,county,state_abbr,state
 1001,Autauga ,AL,Alabama
 1003,Baldwin ,AL,Alabama
 1005,Barbour ,AL,Alabama
