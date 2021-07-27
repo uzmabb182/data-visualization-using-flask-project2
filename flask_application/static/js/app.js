@@ -1,22 +1,27 @@
+
 // Need to get array of petal lengths and call it x
 
+d3.json("us_lat_long.json", function(data) {
+    console.log(data);
+
+// d3.json("/income-list").then(response => {
+
+//     console.log(response);
+
+//     let x = response;
+
+//     var trace = {
+//         x: x,
+//         type: 'histogram',
+//     };
+
+//     var data = [trace];
+//     Plotly.newPlot('myDiv', data);
+
+// })
 
 
-d3.json("/income-list").then(response => {
 
-    console.log(response);
-
-    let x = response;
-
-    var trace = {
-        x: x,
-        type: 'histogram',
-    };
-
-    var data = [trace];
-    Plotly.newPlot('myDiv', data);
-
-})
 
 /* The following is an example on how you might structure your code.
 This is not the only way to complete this assignment.
@@ -34,16 +39,16 @@ function init() {
     // data is an object with three arrays, names, metadata, and samples
     let arrowDropdown = d3.select("#selDataset");
 
-    d3.json("/income-list").then(function (data) {
-        console.log(data);
+    d3.json("/state-list").then(function (data) {
+        // console.log(data);
         console.log(data[0]);
         // fetching first id from 'names' which is an array of items
-        data.names.forEach((name, i) => {
-            let appendOption = arrowDropdown.append("option").text(name).attr('value', name);
+        data.forEach((item, i) => {
+            let appendOption = arrowDropdown.append("option").text(item).attr('value', item);
         });
         // Call functions below using the first sample to build metadata and initial plots
-        buildMetadata(data[0]);
-        buildCharts(data[0]);
+        // buildMetadata(data[0]);
+        // buildCharts(data[0]);
     });
 
 
@@ -165,54 +170,54 @@ function buildCharts(sample) {
         Plotly.newPlot('bubble', data, layout);
 
         // Create bar chart in correct location
-        // Slice the first ten names an reverse the sliced data
+         // Plotly Stacked Bar Chart: /bar-list1  /state-list
+         d3.json("/bar-list").then(response => {
 
-        let otuIdsten = otuIds.slice(0, 10);
-        console.log(otuIdsten)
-        var trace1 = {
-            x: sampleValues.slice(0, 10).reverse(),
-            y: otuIdsten.map(otuId => `ID #${otuId}`).reverse(),
 
-            marker: {
-                // color: ['rgba(204,204,204,1)', 'rgba(222,45,38,0.8)', 'rgba(204,204,204,1)', 'rgba(204,204,204,1)', 'rgba(204,204,204,1)']
-            },
-            type: 'bar',
-            orientation: "h"
-
-        };
-
-        var data = [trace1];
-
-        var layout = {
-            title: 'Top Ten OTUs Found',
-
-        };
-
-        Plotly.newPlot('bar', data, layout);
+            console.log(response)
+        
+            var trace1 = {
+                x: response.state,
+                y: response.below_hs_diploma_2019,
+                name: 'SF Zoo',
+                type: 'bar'
+            };
+            
+            var trace2 = {
+                x: response.state,
+                y: response.hs_diploma_2019,
+                name: 'LA Zoo',
+                type: 'bar'
+            };
+        
+            var data = [trace1, trace2];
+            
+            var layout = {barmode: 'stack'};
+            
+            Plotly.newPlot('myDiv', data, layout);
+        
 
         // gauge chart
 
 
-        var data = [
-            {
-                domain: { x: [0, 1], y: [0, 1] },
-                value: filtermetaData.wfreq,
-                title: { text: "Belly Button Washing Frequency" },
-                type: "indicator",
-                mode: "gauge+number",
-                gauge: { axis: { range: [null, 9] }},
-                
+        const config = {
+            type: 'bubble',
+            data: data,
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+                title: {
+                  display: true,
+                  text: 'Chart.js Bubble Chart'
+                }
+              }
             },
-            
-        ];
-
-        var layout = { 
-            width: 700, 
-            height: 600, 
-            margin: { t: 20, b: 40, l:100, r:100 }
-         };
-        Plotly.newPlot('gauge', data, layout);
-
+          };
+        
+})
 
 
     });

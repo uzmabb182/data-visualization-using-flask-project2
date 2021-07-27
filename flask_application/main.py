@@ -24,9 +24,6 @@ def about():
     return render_template('about.html')
 
 
-
-
-
 @app.route('/plotly')
 def plotly():
     return render_template('index.html')
@@ -42,29 +39,10 @@ def income():
         GROUP BY state
         ORDER BY state;""",conn)
 
-    states_list = df1.state.to_list()
-    avg_per_capita_income_list = df1.avg_per_capita_income.to_list()
-    avg_bachelors_or_higher_2019_list = df1.avg_bachelors_or_higher_2019.to_list()
-
-    return jsonify(avg_per_capita_income_list)
-
-@app.route("/degree-list")
-def degree():
-
-    df1 = pd.read_sql("""SELECT state, ROUND(AVG(poverty_count),2) AS avg_poverty_count, 
-        ROUND(AVG(per_capita_income),2) AS avg_per_capita_income, 
-        ROUND(AVG(bachelors_or_higher_2019),2) AS avg_bachelors_or_higher_2019
-        FROM fips_census_education
-        GROUP BY state
-        ORDER BY state;""",conn)
-
-    states_list = df1.state.to_list()
-    avg_per_capita_income_list = df1.avg_per_capita_income.to_list()
-    avg_bachelors_or_higher_2019_list = df1.avg_bachelors_or_higher_2019.to_list()
-
-    return jsonify(avg_bachelors_or_higher_2019_list)
-
-@app.route("/state-list")
+    income_results = df1.to_json()
+    return income_results
+    
+@app.route("/census-list")
 def state():
 
     df1 = pd.read_sql("""SELECT state, ROUND(AVG(poverty_count),2) AS avg_poverty_count, 
@@ -74,13 +52,50 @@ def state():
         GROUP BY state
         ORDER BY state;""",conn)
 
-    states_list = df1.state.to_list()
-    avg_per_capita_income_list = df1.avg_per_capita_income.to_list()
-    avg_bachelors_or_higher_2019_list = df1.avg_bachelors_or_higher_2019.to_list()
+    census_results = df1.to_json()
+    return census_results
 
-    return jsonify(states_list)
+@app.route("/bar-list")
+def degree1():
+
+    df2 = pd.read_sql("""SELECT state, 
+        ROUND(SUM(below_hs_diploma_2019),2) AS below_hs_diploma_2019,
+        ROUND(SUM(hs_diploma_2019),2) AS hs_diploma_2019,
+        ROUND(SUM(college_or_associate_2019),2) AS college_or_associate_2019,
+        ROUND(SUM(bachelors_or_higher_2019),2) AS bachelors_or_higher_2019
+        FROM fips_census_education 
+        GROUP BY state
+        ORDER BY state;
+        """,conn)
 
     
+
+    bar_results = df2.to_json()
+    return bar_results
+
+
+
+@app.route("/search_state/<state>")
+def search(state):
+    print(state)
+    df3 = pd.read_sql(f"""SELECT state_abbr, state, county, 
+        ROUND(AVG(per_capita_income),2) AS avg_per_capita_income,
+        ROUND(AVG(median_age),2) AS avg_median_age, 
+        ROUND(AVG(population),2) AS avg_population, 
+        ROUND(AVG(poverty_count),2) AS avg_poverty_count, 
+        ROUND(AVG(bachelors_or_higher_2019),2) AS avg_bachelors_or_higher_2019
+        FROM fips_census_education 
+        WHERE state = '{state}' 
+        GROUP BY state, state_abbr, county
+        ORDER BY state, county;
+        """,conn)
+
+
+    search_results = df3.to_json()
+    return search_results
+
+
+    return jsonify(avg_per_capita_income_list)
 
 @app.errorhandler(404)
 def page_not_found(error):
