@@ -6,25 +6,6 @@
 
 
 //-----------------------------------------------------
-// d3.json("/income-list").then(response => {
-
-//     console.log(response);
-
-//     let x = response;
-
-//     var trace = {
-//         x: x,
-//         type: 'histogram',
-//     };
-
-//     var data = [trace];
-//     Plotly.newPlot('myDiv', data);
-
-// })
-
-
-
-
 /* The following is an example on how you might structure your code.
 This is not the only way to complete this assignment.
 Feel free to disregard and create your own code */
@@ -44,6 +25,7 @@ Feel free to disregard and create your own code */
 //             data.push(feed);
             
 //             console.log(data);
+//--------------------------------------------------------------------
 // Define function that will run on page load
 function init() {
 
@@ -70,7 +52,7 @@ function init() {
         };
 
         // Binding array state_name to the dropdown
-        // console.log(state_name);
+        console.log(state_name[0]);
         let sel = document.getElementById('selStateDataset');
         for(var j = 0; j < state_name.length; j++) {
             var opt = document.createElement('option');
@@ -81,16 +63,21 @@ function init() {
         }
     
         // Call functions below using the first sample to build Demographic and initial plots
-        stateDemographic(state_name[0]);
+        stateDemographic(data.state[0]);
+        populateCounty(state_name[0])
     });
+}
 
+//-------------------------------------------------------------------
+//Now populating county
+function populateCounty(sampleState) {
 
-    //--------------------------------------------------------------
-
-    d3.json("/county-list").then(function (data) {
-        // console.log(data);
+    console.log(sampleState)
+    d3.json("/search_state/Alabama").then(function (data) {
+        console.log(data);
         let county_data = data.county
-        // console.log(data.county[0]);
+
+        console.log(data.county[0]);
 
         // state_data is an object, so unpacking it into
         //  an array state_name, to bind it to the dropdown list
@@ -104,7 +91,7 @@ function init() {
         };
 
         // Binding array state_name to the dropdown
-        // console.log(county_name);
+        console.log(county_name);
         let sel = document.getElementById('selCountyDataset');
         for(var j = 0; j < county_name.length; j++) {
             var opt = document.createElement('option');
@@ -115,13 +102,9 @@ function init() {
         }
     
         // Call functions below using the first sample to build Demographic and initial plots
-        // countyDemographic(county_name[0]);
+        countyDemographic(sampleState, county_data[0]);
+        buildCharts(data[0]);
     });
-
-
- 
-        
-        // buildCharts(data[0]);
 }
 //--------------------------------------------------------------   
 // Define a function that will create metadata for given sample
@@ -135,208 +118,76 @@ function stateDemographic(sampleState) {
     // Specify the location of the metadata and update it
     d3.json("/state-list").then(function (data) {
         console.log(data);
-        stateData = data.state
-
         // state_data is an object, so unpacking it into
         //  an array state_name, to bind it to the dropdown list
-        // let st_abbr = [];
-        // let st_name = [];
-        // let st_avg_per_capita_income = [];
-        // let st_avg_median_age = [];
-        // let st_avg_population = [];
-        // let st_avg_poverty_count = [];
-        // let st_avg_bachelors_or_higher_2019 = [];
-
-       
-    
-   
-
-    //     switch (data) {
-    //         case (data.state_abbr):
-    //             let i = 0; 
-    //             for (let [key, value] of Object.entries(data.state_abbr)) {
-    //                 //  console.log(key + ': ' + value);
-    //                 st_abbr[i] = value;
-    //                  i += 1;
-    //         };
-    //         case (data.state):
-    //             let i = 0; 
-    //             for (let [key, value] of Object.entries(data.state)) {
-    //                 //  console.log(key + ': ' + value);
-    //                 st_name[i] = value;
-    //                  i += 1;
-    //         };
-    //         case (data.avg_per_capita_income):
-    //             let i = 0; 
-    //             for (let [key, value] of Object.entries(data.avg_per_capita_income)) {
-    //                 //  console.log(key + ': ' + value);
-    //                 st_avg_per_capita_income[i] = value;
-    //                  i += 1;
-    //         };
-
-    //         case (data.avg_median_age):
-    //             let i = 0; 
-    //             for (let [key, value] of Object.entries(data.avg_median_age)) {
-    //                 //  console.log(key + ': ' + value);
-    //                 st_avg_median_age[i] = value;
-    //                  i += 1;
-    //         };
-
-    //         case (data.avg_median_age):
-    //             let i = 0; 
-    //             for (let [key, value] of Object.entries(data.avg_median_age)) {
-    //                 //  console.log(key + ': ' + value);
-    //                 st_avg_median_age[i] = value;
-    //                  i += 1;
-    //         };
-            
-    
+        // objectLength = Object.keys(data.state_abbr).length
+        name_data = data.state
+        abbr_data = data.state_abbr
+        income_data = data.avg_per_capita_income
+        age_data = data.avg_median_age
+        population_data = data.avg_population
+        poverty_data = data.avg_poverty_count
+        degree_data = data.avg_bachelors_or_higher_2019
+        console.log(abbr_data[0])
         
-        
+        demographicInfoBox.append("h6").text(`state_abbr => ${abbr_data[0]}`)
+        demographicInfoBox.append("h6").text(`state_name => ${name_data[0]}`)
+        demographicInfoBox.append("h6").text(`avg_per_capita_income => ${income_data[0]}`)
+        demographicInfoBox.append("h6").text(`avg_median_age => ${age_data[0]}`)
+        demographicInfoBox.append("h6").text(`avg_population => ${population_data[0]}`)
+        demographicInfoBox.append("h6").text(`avg_poverty_count => ${poverty_data[0]}`)
+        demographicInfoBox.append("h6").text(`avg_bachelors_or_higher => ${degree_data[0]}`)
     });
+        
 }
-
 //-----------------------------------------------------------------------------
-// // Define a function that will create charts for given sample
-// function buildCharts(sample) {
-
-//     let bubbleChart = d3.select("#bubble");
-
-//     // Read the json data
-
-//     d3.json("/income-list").then(function (data) {
-
-//         let metaData = data.metadata;
-//         //console.log(data.metadata[1]);
-//         console.log(metaData);
-
-//         // fitering first matching item from' metadata' which is again an object 
-//         filtermetaData = metaData.filter(firstItem => firstItem.id == sample)
-//         console.log(filtermetaData)
-//         // assigning the first item in the object to a variable
-//         filtermetaData = filtermetaData[0]
-//         console.log(filtermetaData.wfreq)
-
-//         // Parse and filter the data to get the sample's OTU data
-//         // Pay attention to what data is required for each chart
-//         let samplesData = data.samples;
-//         console.log(samplesData);
-//         // fitering first matching item from' metadata' which is again an object 
-//         filterData = samplesData.filter(firstItem => firstItem.id == sample)
-//         console.log(filterData)
-//         // assigning the first item in the object to a variable
-//         filterData = filterData[0]
-//         console.log(filterData.id)
-//         Id = filterData.id
-//         otuIds = filterData.otu_ids
-//         sampleValues = filterData.sample_values
-//         otuLabels = filterData.otu_labels
-//         console.log(Id)
-//         console.log(otuIds)
-//         console.log(sampleValues)
-//         console.log(otuLabels)
-
-//         // Create bubble chart in correct location
-//         var trace1 = {
-//             x: otuIds,
-//             y: sampleValues,
-//             mode: 'markers',
-//             marker: {
-//                 color: otuIds,
-//                 opacity: [1, 0.8, 0.6, 0.4],
-//                 size: sampleValues
-//             }
-//         };
-
-//         var data = [trace1];
-
-//         var layout = {
-
-//             title: 'OTU_IDs Vs. Sample_Values',
-//             showlegend: false,
-//             height: 500,
-//             width: 1300,
-
-//             xaxis: {
-//                 title: {
-//                 text: 'OTU_IDs',
-//                 font: {
-//                 family: 'Courier New, monospace',
-//                 size: 18,
-//                 color: '#7f7f7f'
-//                 }
-//                 }
-//                 },
-
-//                 yaxis: {
-//                 title: {
-//                 text: 'Sample_Values',
-//                 font: {
-//                 family: 'Courier New, monospace',
-//                 size: 18,
-//                 color: '#7f7f7f'
-//                 }
-//                 }
-//                 }
-
-//         };
-
-//         Plotly.newPlot('bubble', data, layout);
-
-//         // Create bar chart in correct location
-//          // Plotly Stacked Bar Chart: /bar-list1  /state-list
-
-//          d3.json("/bar-list").then(response => {
-
-
-//             console.log(response)
+function countyDemographic(sampleState, sampleCounty) {
+    console.log(sampleState)
+    console.log(sampleCounty)
+ 
+    let demographicInfoBox = d3.select("#sample-countydata");
+    demographicInfoBox.html("")
+    // Read the json data
+    // Parse and filter the data to get the sample's Demographic
+    // Specify the location of the metadata and update it
+    d3.json("/search_state/Alabama").then(function (data) {
+        console.log(data);
+        // state_data is an object, so unpacking it into
+        //  an array state_name, to bind it to the dropdown list
+        // objectLength = Object.keys(data.state_abbr).length
+        name_data = data.county
+        income_data = data.per_capita_income
+        age_data = data.median_age
+        population_data = data.population
+        poverty_data = data.poverty_count
+        degree_data = data.bachelors_or_higher
+        console.log(abbr_data[0])
         
-//             var trace1 = {
-//                 x: response.state,
-//                 y: response.below_hs_diploma_2019,
-//                 name: 'SF Zoo',
-//                 type: 'bar'
-//             };
-            
-//             var trace2 = {
-//                 x: response.state,
-//                 y: response.hs_diploma_2019,
-//                 name: 'LA Zoo',
-//                 type: 'bar'
-//             };
-        
-//             var data = [trace1, trace2];
-            
-//             var layout = {barmode: 'stack'};
-            
-//             Plotly.newPlot('myDiv', data, layout);
-        
+        demographicInfoBox.append("h6").text(`county_name => ${name_data[0]}`)
+        demographicInfoBox.append("h6").text(`per_capita_income => ${income_data[0]}`)
+        demographicInfoBox.append("h6").text(`median_age => ${age_data[0]}`)
+        demographicInfoBox.append("h6").text(`population => ${population_data[0]}`)
+        demographicInfoBox.append("h6").text(`poverty_count => ${poverty_data[0]}`)
+        demographicInfoBox.append("h6").text(`bachelors_or_higher => ${degree_data[0]}`)
+    });    
+}
+//-----------------------------------------------------------------------------
+// Define a function that will create charts for given sample
+function buildCharts(sampleState) {
 
-//         // gauge chart
+    let barChart = d3.select("#bar");
 
+    // Read the json data
 
-//         const config = {
-//             type: 'bubble',
-//             data: data,
-//             options: {
-//               responsive: true,
-//               plugins: {
-//                 legend: {
-//                   position: 'top',
-//                 },
-//                 title: {
-//                   display: true,
-//                   text: 'Chart.js Bubble Chart'
-//                 }
-//               }
-//             },
-//           };
-        
-// })
+    d3.json("/state-list").then(function (data) {
 
-//     });
-// }
-
+        // console.log(Object.values(object1));
+        console.log(Object.values(data.state));
+        console.log(Object.values(data.avg_per_capita_income));
+        let stateData = Object.values(data.state)
+        let incomeData = Object.values(data.avg_per_capita_income)        
+    })
+}
 // function optionChanged(sample) {
 //     // The parameter being passed in this function is new sample id from dropdown menu
 //     console.log(sample)
