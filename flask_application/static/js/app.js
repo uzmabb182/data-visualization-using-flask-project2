@@ -174,20 +174,97 @@ function countyDemographic(sampleState, sampleCounty) {
 //-----------------------------------------------------------------------------
 // Define a function that will create charts for given sample
 function buildCharts(sampleState) {
-
+// Bar chart:
     let barChart = d3.select("#bar");
 
     // Read the json data
 
-    d3.json("/state-list").then(function (data) {
+    d3.json("/bar-list").then(function (data) {
+
+        // console.log(Object.values(object1));
+        console.log(Object.values(data.state));
+        console.log(Object.values(data.below_hs_diploma_2019));
+        let stateData = Object.values(data.state)
+        let degree1Data = Object.values(data.below_hs_diploma_2019)
+        let degree2Data = Object.values(data.hs_diploma_2019) 
+        let degree3Data = Object.values(data.college_or_associate_2019) 
+        let degree4Data = Object.values(data.bachelors_or_higher_2019)  
+
+        var trace1 = {
+            x: stateData,
+            y: degree1Data,
+            name: 'below_hs_diploma_2019',
+            type: 'bar'
+            };
+          
+        var trace2 = {
+            x: stateData,
+            y: degree2Data,
+            name: 'hs_diploma_2019',
+            type: 'bar'
+            };
+        
+        var trace3 = {
+            x: stateData,
+            y: degree3Data,
+            name: 'college_or_associate_2019',
+            type: 'bar'
+            };
+          
+        var trace4 = {
+            x: stateData,
+            y: degree4Data,
+            name: 'bachelors_or_higher_2019',
+            type: 'bar'
+            };
+        var data = [trace1, trace2, trace3, trace4];
+          
+        var layout = {barmode: 'stack'};
+          
+        Plotly.newPlot('bar', data, layout);      
+    })
+    //--------------------------------------------------------
+    // Donut Chart
+    d3.json("/income-list").then(function (data) {
 
         // console.log(Object.values(object1));
         console.log(Object.values(data.state));
         console.log(Object.values(data.avg_per_capita_income));
         let stateData = Object.values(data.state)
-        let incomeData = Object.values(data.avg_per_capita_income)        
+        let incomeData = Object.values(data.avg_per_capita_income)
+
+        new Chart(document.getElementById("doughnut-chart"), {
+            type: 'doughnut',
+            data: {
+              labels: stateData,
+              datasets: [
+                {
+                  label: "Avg_per_Capita_Income",
+                  backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                  data: incomeData
+                }
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Average_per_Capita_Income Vs. States'
+              }
+            }
+        });
+        Plotly.newPlot('bar', data, layout);      
     })
-}
+//--------------------------------------------------------------
+    //Funnel Chart
+    let funnelChart = d3.select("#Funnel");
+
+
+    d3.json("/census-list").then(function (data) {
+
+        
+    }) //D3
+} //fuction buildCharts
+//-----------------------------------------------------------------------------------------
 // function optionChanged(sample) {
 //     // The parameter being passed in this function is new sample id from dropdown menu
 //     console.log(sample)
