@@ -1,32 +1,9 @@
+// iterate over object values
+// Object.values(animals).forEach(val => console.log(val));
 
-// Need to get array for leaflet 
-
-// d3.json("us_lat_long.json", function(data) {
-//     console.log(data);
-
-
-//-----------------------------------------------------
-/* The following is an example on how you might structure your code.
-This is not the only way to complete this assignment.
-Feel free to disregard and create your own code */
-// let persons = {
-//     a: 'Jacob',
-//     b: 'Daniel'
-//   };
-  
-//   for (let [key, name] of Object.entries(persons)) {
-//     console.log(key + ': ' + name);
-//   }
-//   Object.entries(filterData).forEach(([key, value]) => {
-//                 demographicInfoBox.append("h6").text(`${key} => ${value}`)
-//             });
-
-//             var data = [];
-//             data.push(feed);
-            
-//             console.log(data);
 //--------------------------------------------------------------------
 // Define function that will run on page load
+
 function init() {
 
     // Read json data
@@ -314,17 +291,17 @@ function buildCharts(sampleState) {
             }
           });
     }) //D3
-} //fuction buildCharts
+} //fuction buildCharts ends
 //-----------------------------------------------------------------------------------------
-// function optionChanged(sample) {
-//     // The parameter being passed in this function is new sample id from dropdown menu
-//     console.log(sample)
-//     // Update metadata with newly selected sample
-//     buildMetadata(sample);
+function optionChanged(sample) {
+    // The parameter being passed in this function is new sample id from dropdown menu
+    console.log(sample)
+    // Update metadata with newly selected sample
+    buildMetadata(sample);
 
-//     // Update charts with newly selected sample
-//     buildCharts(sample);
-// }
+    // Update charts with newly selected sample
+    buildCharts(sample);
+}
 
 // Initialize dashboard on page load
 init();
