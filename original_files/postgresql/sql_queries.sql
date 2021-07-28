@@ -62,12 +62,11 @@ ORDER BY f.state;
 
 
 -- query from view 'county_state' and fips_code_data to analyze different factors verses education on state level 'WHERE' clause
-SELECT state_abbr, state, county, ROUND(AVG(per_capita_income),2) AS avg_per_capita_income, ROUND(AVG(median_age),2) AS avg_median_age, 
-ROUND(AVG(population),2) AS avg_population, ROUND(AVG(poverty_count),2) AS avg_poverty_count, 
-ROUND(AVG(bachelors_or_higher_2019),2) AS avg_bachelors_or_higher_2019
+SELECT state_abbr, state, county, ROUND(per_capita_income,2) AS avg_per_capita_income, ROUND(median_age,2) AS avg_median_age, 
+ROUND(population,2) AS avg_population, ROUND(poverty_count,2) AS avg_poverty_count, 
+ROUND(bachelors_or_higher_2019,2) AS avg_bachelors_or_higher_2019
 FROM fips_census_education 
-WHERE state = 'Alabama' 
-GROUP BY state, state_abbr, county
+-- WHERE state = 'Alabama' AND county = 'Baldwin'
 ORDER BY state, county;
 
 -- query from view 'county_state' and fips_code_data to analyze unemployment on state level by state for bubble chart
@@ -78,6 +77,18 @@ JOIN census_education AS v
 ON (f.fips_code = v.fips_code)
 GROUP BY f.state
 ORDER BY f.state;
+
+--Querying for state search
+SELECT state_abbr, state,
+        ROUND(AVG(per_capita_income), 2) AS avg_per_capita_income,
+        ROUND(AVG(median_age), 2) AS avg_median_age, 
+        ROUND(AVG(population), 2) AS avg_population, 
+        ROUND(AVG(poverty_count), 2) AS avg_poverty_count, 
+        ROUND(AVG(bachelors_or_higher_2019), 2) AS avg_bachelors_or_higher_2019
+        FROM fips_census_education 
+		GROUP BY state_abbr, state
+        ORDER BY state;
+
 
 --selection for analyzing education of all degrees categories for bar chart
 SELECT state, ROUND(SUM(below_hs_diploma_2019),2) AS below_hs_diploma_2019,
