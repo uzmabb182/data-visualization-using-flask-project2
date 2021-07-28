@@ -255,13 +255,64 @@ function buildCharts(sampleState) {
         Plotly.newPlot('bar', data, layout);      
     })
 //--------------------------------------------------------------
-    //Funnel Chart
-    let funnelChart = d3.select("#Funnel");
-
-
+    //Line Chart
     d3.json("/census-list").then(function (data) {
 
-        
+        // console.log(Object.values(object1));
+        console.log(Object.values(data.state));
+        console.log(Object.values(data.avg_per_capita_income));
+        let stateData = Object.values(data.state)
+        let incomeData = Object.values(data.avg_per_capita_income)
+        let ageData = Object.values(data.avg_median_age)
+        let populationData = Object.values(data.avg_population)
+        let povertyData = Object.values(data.avg_poverty_count)
+        let unemploymentData = Object.values(data.avg_unemployment_rate)
+        let degreeData = Object.values(data.avg_bachelors_or_higher_2019)
+
+        new Chart(document.getElementById("line-chart"), {
+            type: 'line',
+            data: {
+              labels: stateData,
+              datasets: [{ 
+                  data: incomeData,
+                  label: "avg_per_capita_income",
+                  borderColor: "#3e95cd",
+                  fill: false
+                }, { 
+                  data: ageData,
+                  label: "avg_median_age",
+                  borderColor: "#8e5ea2",
+                  fill: false
+                }, { 
+                  data: populationData,
+                  label: "avg_population",
+                  borderColor: "#3cba9f",
+                  fill: false
+                }, { 
+                  data: povertyData,
+                  label: "avg_poverty_count",
+                  borderColor: "#e8c3b9",
+                  fill: false
+                }, { 
+                  data: unemploymentData,
+                  label: "avg_unemployment_rate",
+                  borderColor: "#c45850",
+                  fill: false
+                }, { 
+                  data: degreeData,
+                  label: "avg_bachelors_or_higher_2019",
+                  borderColor: "#c45850",
+                  fill: false
+                }
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'US Census Analysis'
+              }
+            }
+          });
     }) //D3
 } //fuction buildCharts
 //-----------------------------------------------------------------------------------------
