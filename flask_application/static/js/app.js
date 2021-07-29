@@ -1,6 +1,3 @@
-// iterate over object values
-// Object.values(animals).forEach(val => console.log(val));
-
 //--------------------------------------------------------------------
 // Define function that will run on page load
 
@@ -49,12 +46,15 @@ function init() {
 //Now populating county
 function populateCounty(sampleState) {
 
+  let state_selector = d3.select("#selStateDataset");
+  
     console.log(sampleState)
-    d3.json("/search_state/Alabama").then(function (data) {
+    //d3.json("/search_state/${sampleState}/${sampleCounty}").then(function (data) {
+      d3.json(`/search_state/${sampleState}`).then(function (data) {
         console.log(data);
         let county_data = data.county
 
-        console.log(data.county[0]);
+        console.log(data.county);
 
         // state_data is an object, so unpacking it into
         //  an array state_name, to bind it to the dropdown list
@@ -79,7 +79,7 @@ function populateCounty(sampleState) {
         }
     
         // Call functions below using the first sample to build Demographic and initial plots
-        countyDemographic(sampleState, county_data[0]);
+        countyDemographic(sampleState);
         buildCharts(data[0]);
     });
 }
@@ -89,12 +89,21 @@ function stateDemographic(sampleState) {
     console.log(sampleState)
  
     let demographicInfoBox = d3.select("#sample-statedata");
+    console.log(demographicInfoBox)
     demographicInfoBox.html("")
     // Read the json data
     // Parse and filter the data to get the sample's Demographic
     // Specify the location of the metadata and update it
     d3.json("/state-list").then(function (data) {
         console.log(data);
+
+        // iterate over object values
+        Object.values(data.state).forEach(val => console.log(val));
+        console.log(sampleState)
+        filterData = Object.values(data.state).filter(val => val == sampleState);
+        console.log(filterData)
+        // filterData = data.state.filter(firstItem => firstItem.value == sampleState)
+        
         // state_data is an object, so unpacking it into
         //  an array state_name, to bind it to the dropdown list
         // objectLength = Object.keys(data.state_abbr).length
@@ -118,16 +127,16 @@ function stateDemographic(sampleState) {
         
 }
 //-----------------------------------------------------------------------------
-function countyDemographic(sampleState, sampleCounty) {
-    console.log(sampleState)
-    console.log(sampleCounty)
- 
-    let demographicInfoBox = d3.select("#sample-countydata");
-    demographicInfoBox.html("")
+function countyDemographic(sampleState) {
+
+        console.log(sampleState)
+
+        let demographicInfoBox = d3.select("#sample-countydata");
+        demographicInfoBox.html("")
     // Read the json data
     // Parse and filter the data to get the sample's Demographic
     // Specify the location of the metadata and update it
-    d3.json("/search_state/Alabama").then(function (data) {
+    d3.json(`/search_state/${sampleState}`).then(function (data) {
         console.log(data);
         // state_data is an object, so unpacking it into
         //  an array state_name, to bind it to the dropdown list
@@ -137,7 +146,7 @@ function countyDemographic(sampleState, sampleCounty) {
         age_data = data.median_age
         population_data = data.population
         poverty_data = data.poverty_count
-        degree_data = data.bachelors_or_higher
+        degree_data = data.bachelors_or_higher_2019
         console.log(abbr_data[0])
         
         demographicInfoBox.append("h6").text(`county_name => ${name_data[0]}`)
@@ -204,6 +213,7 @@ function buildCharts(sampleState) {
     // Donut Chart
     d3.json("/income-list").then(function (data) {
 
+        // To read the values into an array
         // console.log(Object.values(object1));
         console.log(Object.values(data.state));
         console.log(Object.values(data.avg_per_capita_income));
@@ -223,6 +233,14 @@ function buildCharts(sampleState) {
               ]
             },
             options: {
+              layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0
+                }
+              },
               title: {
                 display: true,
                 text: 'Average_per_Capita_Income Vs. States'
@@ -293,14 +311,14 @@ function buildCharts(sampleState) {
     }) //D3
 } //fuction buildCharts ends
 //-----------------------------------------------------------------------------------------
-function optionChanged(sample) {
+function optionChanged(sampleState) {
     // The parameter being passed in this function is new sample id from dropdown menu
-    console.log(sample)
+    console.log(sampleState)
     // Update metadata with newly selected sample
-    buildMetadata(sample);
+    stateDemographic(sampleState);
 
     // Update charts with newly selected sample
-    buildCharts(sample);
+    buildCharts(sampleState);
 }
 
 // Initialize dashboard on page load

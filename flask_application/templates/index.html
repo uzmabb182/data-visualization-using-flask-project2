@@ -11,7 +11,7 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="../static/js/app.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -44,15 +44,17 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <div id="pie"></div>
+                <div id="donut"></div>
+                <canvas id="doughnut-chart" width="1000" height="1000"></canvas>
             </div>
             <div class="col-md-5">
-                <div id="Funnel"></div>
+                <div id="line"></div>
+                <canvas id="line-chart" width="1000" height="1000"></canvas>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div id="bar"></div>
+                <div id="bar" ></div>
             </div>
         </div>
     </div>

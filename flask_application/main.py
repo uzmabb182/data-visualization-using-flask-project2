@@ -28,6 +28,10 @@ def about():
 def plotly():
     return render_template('index.html')
 
+@app.route('/leaflet')
+def map():
+    return render_template('leaflet.html')    
+
 
 @app.route("/income-list")
 def income():
@@ -84,7 +88,7 @@ def degree1():
 
 @app.route("/search_state/<state>")
 def state_search(state):
-    
+    print(state)
     df4 = pd.read_sql(f"""SELECT state_abbr, state, county, 
         ROUND(per_capita_income,2) AS per_capita_income, 
         ROUND(median_age,2) AS median_age, 
