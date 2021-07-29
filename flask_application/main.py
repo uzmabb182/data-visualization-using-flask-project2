@@ -29,8 +29,12 @@ def plotly():
     return render_template('index.html')
 
 @app.route('/leaflet')
-def map():
-    return render_template('leaflet.html')    
+def map_leaf():
+    return render_template('leaflet.html') 
+
+@app.route('/chloropleth')
+def map_chloro():
+    return render_template('chloropleth.html')       
 
 
 @app.route("/income-list")
@@ -67,7 +71,7 @@ ORDER BY f.state;
     return census_results
 
 @app.route("/bar-list")
-def degree1():
+def degree():
 
     df3 = pd.read_sql("""SELECT state, 
         ROUND(SUM(below_hs_diploma_2019),2) AS below_hs_diploma_2019,
@@ -85,79 +89,63 @@ def degree1():
     return bar_results
 
 
+@app.route("/state-list")
+def states():
+
+    df4 = pd.read_sql("""SELECT state, 
+        ROUND(SUM(below_hs_diploma_2019),2) AS below_hs_diploma_2019,
+        ROUND(SUM(hs_diploma_2019),2) AS hs_diploma_2019,
+        ROUND(SUM(college_or_associate_2019),2) AS college_or_associate_2019,
+        ROUND(SUM(bachelors_or_higher_2019),2) AS bachelors_or_higher_2019
+        FROM fips_census_education 
+        GROUP BY state
+        ORDER BY state;
+        """,conn)
+
+    
+
+    state_results = df4.to_json()
+    return state_results
+
 
 @app.route("/search_state/<state>")
 def state_search(state):
-    print(state)
-    df4 = pd.read_sql(f"""SELECT state_abbr, state, county, 
-        ROUND(per_capita_income,2) AS per_capita_income, 
-        ROUND(median_age,2) AS median_age, 
-        ROUND(population,2) AS population, 
-        ROUND(poverty_count,2) AS poverty_count, 
-        ROUND(bachelors_or_higher_2019,2) AS bachelors_or_higher_2019
-        FROM fips_census_education 
-        WHERE state = '{state}' 
-        ORDER BY state, county;
-        """,conn)
 
-
-    search_state_results = df4.to_json()
-    return search_state_results
-
-
-@app.route("/state-list")
-def state_sel():
-   
-    df5 = pd.read_sql("""SELECT state_abbr, state,
+    df5 = pd.read_sql(f"""SELECT state_abbr, state,
         ROUND(AVG(per_capita_income), 2) AS avg_per_capita_income,
         ROUND(AVG(median_age), 2) AS avg_median_age, 
         ROUND(AVG(population), 2) AS avg_population, 
         ROUND(AVG(poverty_count), 2) AS avg_poverty_count, 
         ROUND(AVG(bachelors_or_higher_2019), 2) AS avg_bachelors_or_higher_2019
-        FROM fips_census_education 
+        FROM fips_census_education
+ 		WHERE state = '{state}'
 		GROUP BY state_abbr, state
         ORDER BY state;
         """,conn)
 
 
-    state_results = df5.to_json()
-    return state_results
+    search_state_results = df5.to_json()
+    return search_state_results
 
 
-@app.route("/state_county/<state>/<county>")
-def state_county_search(state, county):
+@app.route("/search_counties/<state>")
+def counties_search(state):
    
     df6 = pd.read_sql(f"""SELECT state_abbr, state, county, 
-        ROUND(per_capita_income,2) AS avg_per_capita_income, ROUND(median_age,2) AS avg_median_age, 
-        ROUND(population,2) AS avg_population, ROUND(poverty_count,2) AS avg_poverty_count, 
-        ROUND(bachelors_or_higher_2019,2) AS avg_bachelors_or_higher_2019
-        FROM fips_census_education 
-        WHERE state = '{state}' AND county = '{county}'
-        ORDER BY state, county;
+		ROUND(per_capita_income,2) AS per_capita_income, 
+		ROUND(median_age,2) AS median_age, 
+		ROUND(unemployment_rate,2) AS unemployment_rate,
+		ROUND(population,2) AS population, 
+		ROUND(poverty_rate,2) AS poverty_rate, 
+		ROUND(bachelors_or_higher_2019,2) AS bachelors_or_higher_2019
+		FROM fips_census_education 
+		WHERE state = '{state}'
+		ORDER BY state, county;
         """,conn)
 
 
-    state_county_results = df6.to_json()
-    return state_county_results
-
-
-@app.route("/county-list")
-def county_sel():
-   
-    df7 = pd.read_sql("""SELECT state_abbr, state, county, 
-        ROUND(per_capita_income,2) AS avg_per_capita_income, ROUND(median_age,2) AS avg_median_age, 
-        ROUND(population,2) AS avg_population, ROUND(poverty_count,2) AS avg_poverty_count, 
-        ROUND(bachelors_or_higher_2019,2) AS avg_bachelors_or_higher_2019
-        FROM fips_census_education 
-        ORDER BY state, county;
-        """,conn)
-
-
-    county_results = df7.to_json()
+    county_results = df6.to_json()
     return county_results
-
-
-
 
 
 @app.errorhandler(404)
