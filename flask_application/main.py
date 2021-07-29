@@ -54,18 +54,18 @@ def income():
 def state():
 
     df2 = pd.read_sql("""SELECT f.state, 
-ROUND(AVG(v.per_capita_income),2) AS avg_per_capita_income, 
-ROUND(AVG(v.median_age),2) AS avg_median_age, 
-ROUND(AVG(v.population),2) AS avg_population, 
-ROUND(AVG(v.poverty_count),2) AS avg_poverty_count, 
-ROUND(AVG(v.unemployment_rate),2) AS avg_unemployment_rate, 
-ROUND(AVG(v.bachelors_or_higher_2019),2) AS avg_bachelors_or_higher_2019
-FROM fips_code_data AS f
-JOIN census_education AS v
-ON (f.fips_code = v.fips_code)
-GROUP BY f.state
-ORDER BY f.state;
-;""",conn)
+        ROUND(AVG(v.per_capita_income),2) AS avg_per_capita_income, 
+        ROUND(AVG(v.median_age),2) AS avg_median_age, 
+        ROUND(AVG(v.population),2) AS avg_population, 
+        ROUND(AVG(v.poverty_count),2) AS avg_poverty_count, 
+        ROUND(AVG(v.unemployment_rate),2) AS avg_unemployment_rate, 
+        ROUND(AVG(v.bachelors_or_higher_2019),2) AS avg_bachelors_or_higher_2019
+        FROM fips_code_data AS f
+        JOIN census_education AS v
+        ON (f.fips_code = v.fips_code)
+        GROUP BY f.state
+        ORDER BY f.state;
+        ;""",conn)
 
     census_results = df2.to_json()
     return census_results

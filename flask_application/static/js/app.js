@@ -137,7 +137,8 @@ function countyDemographic(sampleState) {
 //-----------------------------------------------------------------------------
 // Define a function that will create charts for given sample
 function buildCharts(sampleState) {
-// Bar chart:
+
+    // Plotly Bar Chart:
     let barChart = d3.select("#bar");
 
     // Read the json data
