@@ -1,0 +1,19 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#map {
+  height: 500 px;
+  width: 1000 px;
+}
+
+
+body,
+html {
+  height: 100%;
+}
+
+h1 {
+  text-align: center;
+}

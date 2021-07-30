@@ -8,7 +8,7 @@ function init() {
     // data is an object with three arrays, names, metadata, and samples
     let state_selector = d3.select("#selStateDataset");
     // let county_selector = d3.select("#selCountyDataset");
-
+  
     d3.json("/state-list").then(function (data) {
         console.log(data);
         let state_data = Object.values(data.state)
@@ -38,7 +38,7 @@ function init() {
 // Define a function that will create metadata for given sample
 function stateDemographic(sample) {
   console.log(sample)
-
+  let state_selector = d3.select("#selStateDataset");  
   let demographicInfoBox = d3.select("#sample-statedata");
   demographicInfoBox.html("")
   // Read the json data
@@ -48,6 +48,7 @@ function stateDemographic(sample) {
     console.log(sample)
     let state_data = Object.values(data.state)
     console.log(state_data); 
+    
     // state_data is an object, so unpacking it into
     //  an array state_name, to bind it to the dropdown list
     
@@ -85,7 +86,8 @@ function populateCounty(sample) {
         console.log(sample);
         let county_data = Object.values(data.county)
         console.log(county_data);
-
+        county_idx = county_data[0]
+        console.log(county_idx)
         // to refresh the html
         d3.select("#selCountyDataset").html("")
 
@@ -99,29 +101,30 @@ function populateCounty(sample) {
             sel.appendChild(opt);
         }    
         // Call functions below using the first sample to build Demographic and initial plots
-        init_countyDemographic(sample)
+        init_countyDemographic(sample, county_idx)
       });
 }
 //-----------------------------------------------------------------------------
-function init_countyDemographic(sample) {
+function init_countyDemographic(sample, county_idx) {
 
         console.log(sample)
-
+        console.log(county_idx)
         let demographicInfoBox = d3.select("#sample-countydata");
         demographicInfoBox.html("")
     // Read the json data
     // Parse and filter the data to get the sample's Demographic
-    d3.json(`/search_counties/${sample}`).then(function (data) {
+    d3.json(`/search_state_county/${sample}/${county_idx}`).then(function (data) {
         console.log(data);
         let county_data = Object.values(data.county)
         console.log(county_data); 
         console.log(sample)
         sampleState = sample
-        console.log(data.county)
+        console.log(county_data)
         // state_data is an object, so unpacking it into
         //  an array state_name, to bind it to the dropdown list
         // objectLength = Object.keys(data.state_abbr).length
         name_data = Object.values(data.county)
+        console.log(name_data)
         income_data = Object.values(data.per_capita_income)
         age_data = Object.values(data.median_age)
         unemployment_data = Object.values(data.unemployment_rate)
@@ -129,29 +132,28 @@ function init_countyDemographic(sample) {
         poverty_data = Object.values(data.poverty_rate)
         degree_data = Object.values(data.bachelors_or_higher_2019)
         
-        demographicInfoBox.append("h6").text(`county_name => ${name_data[0]}`)
-        demographicInfoBox.append("h6").text(`per_capita_income => ${income_data[0]}`)
-        demographicInfoBox.append("h6").text(`median_age => ${age_data[0]}`)
-        demographicInfoBox.append("h6").text(`unemployment_data => ${unemployment_data[0]}`)
-        demographicInfoBox.append("h6").text(`population => ${population_data[0]}`)
-        demographicInfoBox.append("h6").text(`poverty_count => ${poverty_data[0]}`)
-        demographicInfoBox.append("h6").text(`bachelors_or_higher => ${degree_data[0]}`)
+        demographicInfoBox.append("h6").text(`county_name => ${name_data}`)
+        demographicInfoBox.append("h6").text(`per_capita_income => ${income_data}`)
+        demographicInfoBox.append("h6").text(`median_age => ${age_data}`)
+        demographicInfoBox.append("h6").text(`unemployment_data => ${unemployment_data}`)
+        demographicInfoBox.append("h6").text(`population => ${population_data}`)
+        demographicInfoBox.append("h6").text(`poverty_count => ${poverty_data}`)
+        demographicInfoBox.append("h6").text(`bachelors_or_higher => ${degree_data}`)
     });    
 }
 //--------------------------------------------------------------------------------------
 function countyDemographicUpdate(sample1, sample2) {
 
-        console.log(sample)
-
+        console.log(sample1)
+        console.log(sample2)
         let demographicInfoBox = d3.select("#sample-countydata");
         demographicInfoBox.html("")
     // Read the json data
     // Parse and filter the data to get the sample's Demographic
-    d3.json(`/search_state_county/${sample1}${sample2}`).then(function (data) {
+    d3.json(`/search_state_county/${sample1}/${sample2}`).then(function (data) {
         console.log(data);
         let county_data = Object.values(data.county)
         console.log(county_data); 
-        console.log(sample)
         console.log(data.county)
         // state_data is an object, so unpacking it into
         //  an array state_name, to bind it to the dropdown list
@@ -176,25 +178,26 @@ function countyDemographicUpdate(sample1, sample2) {
 
 
 //--------------------------------------------------------------------------------------
-function stateChange(sample) {
+// function stateChange(sample) {
   
    
-    d3.json(`/search_state/${sample}`).then(function (data) {
-        console.log(data);
-        console.log(sample)
-        sampleHolder = sample
-        console.log(sampleHolder);
-        let state_data = Object.values(data.state)
-        console.log(state_data);
+//     d3.json(`/search_state/${sample}`).then(function (data) {
+//         console.log(data);
+//         console.log(sample)
+//         sampleHolder = sample
+//         console.log(sampleHolder);
+//         let state_data = Object.values(data.state)
+//         console.log(state_data);
     
-        stateDemographic(sample);
-        init_countyDemographic(sample)
-        buildCharts();
-        countyDemographicUpdate(sample1, sample2)
-    })
+//         stateDemographic(sample);
+//         init_countyDemographic(sample, )
+//         // buildCharts();
+//         // countyDemographicUpdate(sample1, sample2)
+
+//     })
 
 
-}
+// }
     
     //   countyDemographicUpdate(sample)
    
@@ -356,15 +359,67 @@ function buildCharts(sample) {
     }) //D3
 } //fuction buildCharts ends
 //-----------------------------------------------------------------------------------------
-function optionChanged(sample) {
+function stateChanged(sample) {
     // The parameter being passed in this function is new sample id from dropdown menu
     console.log(sample)
+     // Calling the select() function
+    //  var a = d3.select("div").text();
+
+    let state_selector = document.getElementById('selStateDataset');
+    console.log(state_selector.options[state_selector.selectedIndex].value)
+    state_value = state_selector.options[state_selector.selectedIndex].value
+    console.log(state_value)
+    // console.log(d3.event.target)
     
     stateDemographic(sample);
-    init_countyDemographic(sample)
-    buildCharts(sample);
+    init_countyDemographic(sample, county_idx)
+
+    // let county_selector = document.getElementById('selCountyDataset');
+    // console.log(county_selector.options[county_selector.selectedIndex].value)
+    // county_value = county_selector.options[county_selector.selectedIndex].value
+    // console.log(county_value)
+    // countyDemographicUpdate(state_value, county_value)
+
+
+    
+
+    // buildCharts(sample);
     // countyDemographicUpdate(sample1, sample2)
-    // stateChange(sample)
+
+ 
+   
+} 
+
+//----------------------------------------------------------------------------------
+function countyChanged(sample) {
+  // The parameter being passed in this function is new sample id from dropdown menu
+  console.log(sample)
+   // Calling the select() function
+  //  var a = d3.select("div").text();
+
+  // let state_selector = document.getElementById('selStateDataset');
+  // console.log(state_selector.options[state_selector.selectedIndex].value)
+  // state_value = state_selector.options[state_selector.selectedIndex].value
+   console.log(state_value)
+
+  
+  // stateDemographic(sample);
+  // init_countyDemographic(sample, county_idx)
+
+  let county_selector = document.getElementById('selCountyDataset');
+  console.log(county_selector.options[county_selector.selectedIndex].value)
+  county_value = county_selector.options[county_selector.selectedIndex].value
+  console.log(county_value)
+  countyDemographicUpdate(state_value, sample)
+
+
+  
+
+  // buildCharts(sample);
+  // countyDemographicUpdate(sample1, sample2)
+
+
+ 
 } 
 
 // Initialize dashboard on page load
