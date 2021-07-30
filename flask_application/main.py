@@ -147,6 +147,24 @@ def counties_search(state):
     county_results = df6.to_json()
     return county_results
 
+@app.route("/search_state_county/<state>/<county>")
+def state_county_search(state, county):
+   
+    df7 = pd.read_sql(f"""SELECT state_abbr, state, county, 
+            ROUND(per_capita_income,2) AS per_capita_income, 
+            ROUND(median_age,2) AS median_age, 
+            ROUND(unemployment_rate,2) AS unemployment_rate,
+            ROUND(population,2) AS population, 
+            ROUND(poverty_rate,2) AS poverty_rate, 
+            ROUND(bachelors_or_higher_2019,2) AS bachelors_or_higher_2019
+            FROM fips_census_education 
+            WHERE (state = '{state}' 
+            AND county = '{county}');
+            """,conn)
+
+
+    state_county_results = df7.to_json()
+    return state_county_results    
 
 @app.errorhandler(404)
 def page_not_found(error):

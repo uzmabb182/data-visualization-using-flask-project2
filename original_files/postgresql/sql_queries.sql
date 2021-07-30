@@ -37,6 +37,11 @@ FROM fips_code_data AS f
 JOIN census_education AS v
 ON (f.fips_code = v.fips_code);
 
+
+select * from fips_code_data where county=cast('Baldwin ' as varchar)
+
+update fips_code_data set county=trim(county)
+
 -- view from three tables
 SELECT * FROM fips_census_education;
 
@@ -95,12 +100,21 @@ SELECT state_abbr, state, county,
 		ROUND(poverty_rate,2) AS poverty_rate, 
 		ROUND(bachelors_or_higher_2019,2) AS bachelors_or_higher_2019
 		FROM fips_census_education 
-		WHERE state = 'California'
-		ORDER BY state, county;
+		WHERE (state = 'California' 
+ 		AND county = 'Alameda');
 
+SELECT  county, 
+ 		ROUND(per_capita_income,2) AS per_capita_income, 
+		ROUND(median_age,2) AS median_age, 
+ 		ROUND(unemployment_rate,2) AS unemployment_rate,
+		ROUND(population,2) AS population, 
+ 		ROUND(poverty_rate,2) AS poverty_rate, 
+ 		ROUND(bachelors_or_higher_2019,2) AS bachelors_or_higher_2019
+		FROM fips_census_education 
+		WHERE county = 'Autauga';
 
-
-
+select * from fips_census_education
+where  county='Bibb'
 
 -- query from view 'county_state' and fips_code_data to analyze different factors verses 
 --education on state level 'WHERE' clause
@@ -109,7 +123,7 @@ ROUND(median_age,2) AS avg_median_age,
 ROUND(population,2) AS avg_population, ROUND(poverty_count,2) AS avg_poverty_count, 
 ROUND(bachelors_or_higher_2019,2) AS avg_bachelors_or_higher_2019
 FROM fips_census_education 
-WHERE state = 'Alabama' 
+WHERE state = 'Alabama'
 ORDER BY state, county;
 
 
@@ -132,6 +146,10 @@ ROUND(SUM(bachelors_or_higher_2019),2) AS bachelors_or_higher_2019
 FROM fips_census_education 
 GROUP BY state
 ORDER BY state;
+
+SELECT * FROM census_data
+WHERE (fips_code = 1001 AND median_age > 30);
+
 
 
 
