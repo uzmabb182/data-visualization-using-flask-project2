@@ -2,48 +2,55 @@
 // var newYorkCoords = [40.73, -74.0059];
 // var mapZoomLevel = 12;
 
-d3.json("../static/data/us_lat_long/us_state_capitals.json").then(function (data) {
+d3.json("../static/data/cleaned_states_coordinates.json").then(function (data) {
   console.log(data);
-  let lat_data = Object.values(data.AK)
-  console.log(lat_data);
-});
 
-d3.json("/state-list").then(function (data) {
-  // Once we get a response, send to the function.
-  let state_data = Object.values(data.state)
-  console.log(state_data); 
-  createMarkers(state_data);
+  console.log(data[0].state); 
+  console.log(data[1].state); 
+
+  console.log(data[0].lat); 
+  console.log(data[1].lat); 
+  
+  for (var i = 0; i <data.length; i++) {
+    console.log(data[i].lat); 
+    console.log(data[i].long);  
+  }
+  createMarkers(data);
 });
 
 //==========================================================================================
 
-function createMarkers(state_data) {
+function createMarkers(data) {
 
-  // Define a function that we want to run once for each station 
+  console.log(data);
+  console.log(data[0].lat); 
+  console.log(data[0].long); 
+
+  // Define a function that we want to run once for each poverty location 
   
-  let stations = state_data;
-  
-  let bikeStations = [];
+  let povertyMarkers = [];
 
-  for (var i = 0; i <stations.length; i++) {
+  for (var i = 0; i <data.length; i++) {
 
-    // For each station, create a marker, and bind a popup with the station's name.
-    let bikeMarker = L.marker([stations[i].lat, stations[i].lon])
-      .bindPopup("<h3>" + stations.name + "<h3><h3>Capacity: " + stations.capacity + "</h3>");
+    // For each location, create a marker, and bind a popup with the state's name.
+    let coordinateMarker = L.marker([data[i].lat, data[i].long])
+      .bindPopup("<h3>" + data[i].state + "<h3><h3>Capacity: " + data[i].avg_bachelors_or_higher_2019 + "</h3>");
       
-    // Add the marker to the bikeMarkers array.
-    bikeStations.push(bikeMarker);
+    // Add the marker to the povertyMarkers array.
+    // console.log(coordinateMarker)
+    povertyMarkers.push(coordinateMarker);
    
   }
- 
-  bikesLayer = L.layerGroup(bikeStations)
+  
+  console.log(povertyMarkers)
+  povertyLayer = L.layerGroup(povertyMarkers)
 
-  // Send our bikes layer to the createMap function
-  createMap(bikesLayer);
+  // Send our poverty layer to the createMap function
+  createMap(povertyLayer);
 }
 //==========================================================================================
 // Create the createMap function.
-function createMap(bikesLayer) {
+function createMap(povertyLayer) {
 
   // Create the base layers.
   var streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -62,14 +69,14 @@ function createMap(bikesLayer) {
 
   // Create an overlay object to hold our overlay.
   var overlayMaps = {
-    "Bike Station": bikesLayer
+    "Bike Station": povertyLayer
   };
 
-  // Create our map, giving it the streetmap and bikeslayer to display on load.
+  // Create our map, giving it the streetmap and povertylayer to display on load.
   var myMap = L.map("map-id", {
     center: [40.73, -74.0059],
     zoom: 12,
-    layers: [streetmap, topomap, bikesLayer]
+    layers: [streetmap, topomap, povertyLayer]
   });
 
   // Create a layer control.

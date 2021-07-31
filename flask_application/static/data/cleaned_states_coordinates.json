@@ -1,0 +1,482 @@
+[
+  {
+    "state": "Alabama",
+    "avg_poverty_count": 11880.43,
+    "avg_per_capita_income": 24049.15,
+    "avg_bachelors_or_higher_2019": 12623.46,
+    "abbr": "AL",
+    "capital": "Montgomery",
+    "lat": 32.361538,
+    "long": -86.27911800000001
+  },
+  {
+    "state": "Arizona",
+    "avg_poverty_count": 69584.27,
+    "avg_per_capita_income": 24500.27,
+    "avg_bachelors_or_higher_2019": 92968.4,
+    "abbr": "AZ",
+    "capital": "Phoenix",
+    "lat": 33.448457,
+    "long": -112.073844
+  },
+  {
+    "state": "Arkansas",
+    "avg_poverty_count": 6616.8,
+    "avg_per_capita_income": 23285.04,
+    "avg_bachelors_or_higher_2019": 6176.48,
+    "abbr": "AR",
+    "capital": "Little Rock",
+    "lat": 34.736009,
+    "long": -92.331122
+  },
+  {
+    "state": "California",
+    "avg_poverty_count": 88788.66,
+    "avg_per_capita_income": 33798.62,
+    "avg_bachelors_or_higher_2019": 154840.1,
+    "abbr": "CA",
+    "capital": "Sacramento",
+    "lat": 38.555605,
+    "long": -121.468926
+  },
+  {
+    "state": "Colorado",
+    "avg_poverty_count": 8841.77,
+    "avg_per_capita_income": 31972.55,
+    "avg_bachelors_or_higher_2019": 24455.22,
+    "abbr": "CO",
+    "capital": "Denver",
+    "lat": 39.7391667,
+    "long": -104.984167
+  },
+  {
+    "state": "Connecticut",
+    "avg_poverty_count": 43018.25,
+    "avg_per_capita_income": 42480.5,
+    "avg_bachelors_or_higher_2019": 121933.13,
+    "abbr": "CT",
+    "capital": "Hartford",
+    "lat": 41.766999999999996,
+    "long": -72.67699999999999
+  },
+  {
+    "state": "Delaware",
+    "avg_poverty_count": 36466.67,
+    "avg_per_capita_income": 33956,
+    "avg_bachelors_or_higher_2019": 71379.33,
+    "abbr": "DE",
+    "capital": "Dover",
+    "lat": 39.161921,
+    "long": -75.52675500000001
+  },
+  {
+    "state": "Florida",
+    "avg_poverty_count": 42843.09,
+    "avg_per_capita_income": 27563.28,
+    "avg_bachelors_or_higher_2019": 66741.81,
+    "abbr": "FL",
+    "capital": "Tallahassee",
+    "lat": 30.4518,
+    "long": -84.27277
+  },
+  {
+    "state": "Georgia",
+    "avg_poverty_count": 9613.57,
+    "avg_per_capita_income": 24484.43,
+    "avg_bachelors_or_higher_2019": 13569.91,
+    "abbr": "GA",
+    "capital": "Atlanta",
+    "lat": 33.76,
+    "long": -84.39
+  },
+  {
+    "state": "Hawaii",
+    "avg_poverty_count": 26129.8,
+    "avg_per_capita_income": 36972,
+    "avg_bachelors_or_higher_2019": 65493.2,
+    "abbr": "HI",
+    "capital": "Honolulu",
+    "lat": 21.30895,
+    "long": -157.82618200000002
+  },
+  {
+    "state": "Idaho",
+    "avg_poverty_count": 5028.55,
+    "avg_per_capita_income": 25463.48,
+    "avg_bachelors_or_higher_2019": 6989.48,
+    "abbr": "ID",
+    "capital": "Boise",
+    "lat": 43.613739,
+    "long": -116.237651
+  },
+  {
+    "state": "Illinois",
+    "avg_poverty_count": 15273.26,
+    "avg_per_capita_income": 29364.1,
+    "avg_bachelors_or_higher_2019": 29510.05,
+    "abbr": "IL",
+    "capital": "Springfield",
+    "lat": 39.78325,
+    "long": -89.650373
+  },
+  {
+    "state": "Indiana",
+    "avg_poverty_count": 9434.74,
+    "avg_per_capita_income": 28021.25,
+    "avg_bachelors_or_higher_2019": 12740.83,
+    "abbr": "IN",
+    "capital": "Indianapolis",
+    "lat": 39.790942,
+    "long": -86.147685
+  },
+  {
+    "state": "Iowa",
+    "avg_poverty_count": 3516.38,
+    "avg_per_capita_income": 30429.03,
+    "avg_bachelors_or_higher_2019": 6038.7,
+    "abbr": "IA",
+    "capital": "Des Moines",
+    "lat": 41.590939,
+    "long": -93.620866
+  },
+  {
+    "state": "Kansas",
+    "avg_poverty_count": 3216.56,
+    "avg_per_capita_income": 27615.3,
+    "avg_bachelors_or_higher_2019": 6048.29,
+    "abbr": "KS",
+    "capital": "Topeka",
+    "lat": 39.04,
+    "long": -95.69
+  },
+  {
+    "state": "Kentucky",
+    "avg_poverty_count": 6225.08,
+    "avg_per_capita_income": 24117.47,
+    "avg_bachelors_or_higher_2019": 6092.35,
+    "abbr": "KY",
+    "capital": "Frankfort",
+    "lat": 38.197274,
+    "long": -84.86310999999999
+  },
+  {
+    "state": "Maine",
+    "avg_poverty_count": 9570.69,
+    "avg_per_capita_income": 30126.56,
+    "avg_bachelors_or_higher_2019": 19368,
+    "abbr": "ME",
+    "capital": "Augusta",
+    "lat": 44.323535,
+    "long": -69.765261
+  },
+  {
+    "state": "Maryland",
+    "avg_poverty_count": 18067.61,
+    "avg_per_capita_income": 38381.7,
+    "avg_bachelors_or_higher_2019": 66414.61,
+    "abbr": "MD",
+    "capital": "Annapolis",
+    "lat": 38.972945,
+    "long": -76.50115699999999
+  },
+  {
+    "state": "Massachusetts",
+    "avg_poverty_count": 48640.14,
+    "avg_per_capita_income": 42183.07,
+    "avg_bachelors_or_higher_2019": 149218.93,
+    "abbr": "MA",
+    "capital": "Boston",
+    "lat": 42.2352,
+    "long": -71.0275
+  },
+  {
+    "state": "Michigan",
+    "avg_poverty_count": 16849.72,
+    "avg_per_capita_income": 28080.84,
+    "avg_bachelors_or_higher_2019": 23917.71,
+    "abbr": "MI",
+    "capital": "Lansing",
+    "lat": 42.7335,
+    "long": -84.5467
+  },
+  {
+    "state": "Minnesota",
+    "avg_poverty_count": 6046.72,
+    "avg_per_capita_income": 31850.7,
+    "avg_bachelors_or_higher_2019": 15622.61,
+    "abbr": "MN",
+    "capital": "Saint Paul",
+    "lat": 44.95,
+    "long": -93.094
+  },
+  {
+    "state": "Mississippi",
+    "avg_poverty_count": 7143.73,
+    "avg_per_capita_income": 21758.45,
+    "avg_bachelors_or_higher_2019": 5306.74,
+    "abbr": "MS",
+    "capital": "Jackson",
+    "lat": 32.32,
+    "long": -90.20700000000001
+  },
+  {
+    "state": "Missouri",
+    "avg_poverty_count": 6531.87,
+    "avg_per_capita_income": 24924.72,
+    "avg_bachelors_or_higher_2019": 9937.66,
+    "abbr": "MO",
+    "capital": "Jefferson City",
+    "lat": 38.572953999999996,
+    "long": -92.18928299999999
+  },
+  {
+    "state": "Montana",
+    "avg_poverty_count": 2403.66,
+    "avg_per_capita_income": 28931.93,
+    "avg_bachelors_or_higher_2019": 4136.95,
+    "abbr": "MT",
+    "capital": "Helana",
+    "lat": 46.595805,
+    "long": -112.02703100000001
+  },
+  {
+    "state": "Nebraska",
+    "avg_poverty_count": 2221.28,
+    "avg_per_capita_income": 29498.57,
+    "avg_bachelors_or_higher_2019": 4292.74,
+    "abbr": "NE",
+    "capital": "Lincoln",
+    "lat": 40.809868,
+    "long": -96.675345
+  },
+  {
+    "state": "Nevada",
+    "avg_poverty_count": 23670.63,
+    "avg_per_capita_income": 30103.69,
+    "avg_bachelors_or_higher_2019": 31060.75,
+    "abbr": "NV",
+    "capital": "Carson City",
+    "lat": 39.160949,
+    "long": -119.753877
+  },
+  {
+    "state": "New Hampshire",
+    "avg_poverty_count": 9868.2,
+    "avg_per_capita_income": 36819.6,
+    "avg_bachelors_or_higher_2019": 35573.7,
+    "abbr": "NH",
+    "capital": "Concord",
+    "lat": 43.220093,
+    "long": -71.549127
+  },
+  {
+    "state": "New Jersey",
+    "avg_poverty_count": 41384.81,
+    "avg_per_capita_income": 42013.76,
+    "avg_bachelors_or_higher_2019": 116235.76,
+    "abbr": "NJ",
+    "capital": "Trenton",
+    "lat": 40.221740999999994,
+    "long": -74.756138
+  },
+  {
+    "state": "New Mexico",
+    "avg_poverty_count": 10515.13,
+    "avg_per_capita_income": 24697.28,
+    "avg_bachelors_or_higher_2019": 10874.28,
+    "abbr": "NM",
+    "capital": "Santa Fe",
+    "lat": 35.667231,
+    "long": -105.964575
+  },
+  {
+    "state": "New York",
+    "avg_poverty_count": 43246.4,
+    "avg_per_capita_income": 32578.42,
+    "avg_bachelors_or_higher_2019": 80416.24,
+    "abbr": "NY",
+    "capital": "Albany",
+    "lat": 42.659828999999995,
+    "long": -73.781339
+  },
+  {
+    "state": "North Carolina",
+    "avg_poverty_count": 14675.91,
+    "avg_per_capita_income": 26640.94,
+    "avg_bachelors_or_higher_2019": 21828.53,
+    "abbr": "NC",
+    "capital": "Raleigh",
+    "lat": 35.771,
+    "long": -78.638
+  },
+  {
+    "state": "North Dakota",
+    "avg_poverty_count": 1475.43,
+    "avg_per_capita_income": 34891.85,
+    "avg_bachelors_or_higher_2019": 2806.74,
+    "abbr": "ND",
+    "capital": "Bismarck",
+    "lat": 48.813342999999996,
+    "long": -100.779004
+  },
+  {
+    "state": "Ohio",
+    "avg_poverty_count": 18049.35,
+    "avg_per_capita_income": 28652.2,
+    "avg_bachelors_or_higher_2019": 25628.7,
+    "abbr": "OH",
+    "capital": "Columbus",
+    "lat": 39.962245,
+    "long": -83.000647
+  },
+  {
+    "state": "Oklahoma",
+    "avg_poverty_count": 7771.08,
+    "avg_per_capita_income": 25253.38,
+    "avg_bachelors_or_higher_2019": 8591.03,
+    "abbr": "OK",
+    "capital": "Oklahoma City",
+    "lat": 35.482309,
+    "long": -97.534994
+  },
+  {
+    "state": "Oregon",
+    "avg_poverty_count": 14820.19,
+    "avg_per_capita_income": 28958.14,
+    "avg_bachelors_or_higher_2019": 27108.89,
+    "abbr": "OR",
+    "capital": "Salem",
+    "lat": 44.931109,
+    "long": -123.029159
+  },
+  {
+    "state": "Pennsylvania",
+    "avg_poverty_count": 22972.88,
+    "avg_per_capita_income": 30052.69,
+    "avg_bachelors_or_higher_2019": 42004.25,
+    "abbr": "PA",
+    "capital": "Harrisburg",
+    "lat": 40.269789,
+    "long": -76.875613
+  },
+  {
+    "state": "Rhode Island",
+    "avg_poverty_count": 25165.2,
+    "avg_per_capita_income": 41684,
+    "avg_bachelors_or_higher_2019": 50423.6,
+    "abbr": "RI",
+    "capital": "Providence",
+    "lat": 41.82355,
+    "long": -71.42213199999999
+  },
+  {
+    "state": "South Carolina",
+    "avg_poverty_count": 16122.83,
+    "avg_per_capita_income": 25193.48,
+    "avg_bachelors_or_higher_2019": 21071.28,
+    "abbr": "SC",
+    "capital": "Columbia",
+    "lat": 34,
+    "long": -81.035
+  },
+  {
+    "state": "South Dakota",
+    "avg_poverty_count": 1675.05,
+    "avg_per_capita_income": 28913.61,
+    "avg_bachelors_or_higher_2019": 2501.21,
+    "abbr": "SD",
+    "capital": "Pierre",
+    "lat": 44.367965999999996,
+    "long": -100.336378
+  },
+  {
+    "state": "Tennessee",
+    "avg_poverty_count": 10494,
+    "avg_per_capita_income": 25324.89,
+    "avg_bachelors_or_higher_2019": 13201.53,
+    "abbr": "TN",
+    "capital": "Nashville",
+    "lat": 36.165,
+    "long": -86.78399999999999
+  },
+  {
+    "state": "Texas",
+    "avg_poverty_count": 16032.26,
+    "avg_per_capita_income": 26280.5,
+    "avg_bachelors_or_higher_2019": 21341.24,
+    "abbr": "TX",
+    "capital": "Austin",
+    "lat": 30.266666999999998,
+    "long": -97.75
+  },
+  {
+    "state": "Utah",
+    "avg_poverty_count": 10294.38,
+    "avg_per_capita_income": 26673.83,
+    "avg_bachelors_or_higher_2019": 21396.72,
+    "abbr": "UT",
+    "capital": "Salt Lake City",
+    "lat": 40.7547,
+    "long": -111.892622
+  },
+  {
+    "state": "Vermont",
+    "avg_poverty_count": 4689.43,
+    "avg_per_capita_income": 33184.5,
+    "avg_bachelors_or_higher_2019": 11963.07,
+    "abbr": "VT",
+    "capital": "Montpelier",
+    "lat": 44.26639,
+    "long": -72.57194
+  },
+  {
+    "state": "Virginia",
+    "avg_poverty_count": 5341.26,
+    "avg_per_capita_income": 31493.65,
+    "avg_bachelors_or_higher_2019": 17430.98,
+    "abbr": "VA",
+    "capital": "Richmond",
+    "lat": 37.54,
+    "long": -77.46
+  },
+  {
+    "state": "Washington",
+    "avg_poverty_count": 20134.46,
+    "avg_per_capita_income": 30986.26,
+    "avg_bachelors_or_higher_2019": 47118.26,
+    "abbr": "WA",
+    "capital": "Olympia",
+    "lat": 47.042418,
+    "long": -122.893077
+  },
+  {
+    "state": "West Virginia",
+    "avg_poverty_count": 5637.16,
+    "avg_per_capita_income": 24691.84,
+    "avg_bachelors_or_higher_2019": 4825.42,
+    "abbr": "WV",
+    "capital": "Charleston",
+    "lat": 38.349497,
+    "long": -81.63329399999999
+  },
+  {
+    "state": "Wisconsin",
+    "avg_poverty_count": 8877.22,
+    "avg_per_capita_income": 31034.36,
+    "avg_bachelors_or_higher_2019": 16546.24,
+    "abbr": "WI",
+    "capital": "Madison",
+    "lat": 43.074721999999994,
+    "long": -89.38444399999999
+  },
+  {
+    "state": "Wyoming",
+    "avg_poverty_count": 2706.83,
+    "avg_per_capita_income": 32161.78,
+    "avg_bachelors_or_higher_2019": 4645.87,
+    "abbr": "WY",
+    "capital": "Cheyenne",
+    "lat": 41.145548,
+    "long": -104.802042
+  }
+]
