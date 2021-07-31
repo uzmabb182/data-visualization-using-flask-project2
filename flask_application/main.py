@@ -166,6 +166,24 @@ def state_county_search(state, county):
     state_county_results = df7.to_json()
     return state_county_results    
 
+
+@app.route("/plot_chart_state/<state>")
+def plot_state(state):
+   
+    df8 = pd.read_sql(f"""SELECT state_abbr, state, county, 
+        ROUND(per_capita_income,2) AS per_capita_income, 
+        ROUND(median_age,2) AS median_age, 
+        ROUND(population,2) AS population, ROUND(poverty_count,2) AS poverty_count, 
+        ROUND(bachelors_or_higher_2019,2) AS bachelors_or_higher_2019
+        FROM fips_census_education 
+        WHERE state = '{state}'
+        ORDER BY county;
+         """,conn)
+          
+
+    plot_state_results = df8.to_json()
+    return plot_state_results    
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
