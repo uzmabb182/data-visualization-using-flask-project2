@@ -12,9 +12,7 @@ function init() {
     d3.json("/state-list").then(function (data) {
         console.log(data);
         let state_data = Object.values(data.state)
-        // let filterState = state_data.filter(firstItem => firstItem == sample)
-        // console.log(filterState)
-
+        
         // To read the values into an array
         console.log(state_data[0]);
 

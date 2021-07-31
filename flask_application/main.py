@@ -32,9 +32,9 @@ def plotly():
 def map_leaf():
     return render_template('leaflet.html') 
 
-@app.route('/chloropleth')
+@app.route('/choropleth')
 def map_chloro():
-    return render_template('chloropleth.html')       
+    return render_template('choropleth.html')       
 
 
 @app.route("/income-list")

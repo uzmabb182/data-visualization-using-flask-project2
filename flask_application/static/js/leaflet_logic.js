@@ -1,25 +1,27 @@
+
 // var newYorkCoords = [40.73, -74.0059];
 // var mapZoomLevel = 12;
 
-d3.json("us_lat_long.json", function(data) {
+d3.json("../static/data/us_lat_long/us_state_capitals.json").then(function (data) {
   console.log(data);
+  let lat_data = Object.values(data.AK)
+  console.log(lat_data);
 });
 
-// Store our API endpoint as queryUrl.
-url = "https://gbfs.citibikenyc.com/gbfs/en/station_information.json"
-
-d3.json(url).then(function (response) {
+d3.json("/state-list").then(function (data) {
   // Once we get a response, send to the function.
-  console.log(response); 
-  createMarkers(response);
+  let state_data = Object.values(data.state)
+  console.log(state_data); 
+  createMarkers(state_data);
 });
+
 //==========================================================================================
 
-function createMarkers(response) {
+function createMarkers(state_data) {
 
   // Define a function that we want to run once for each station 
   
-  let stations = response.data.stations;
+  let stations = state_data;
   
   let bikeStations = [];
 
