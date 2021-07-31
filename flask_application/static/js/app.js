@@ -173,35 +173,6 @@ function countyDemographicUpdate(sample1, sample2) {
         demographicInfoBox.append("h6").text(`bachelors_or_higher => ${degree_data}`)
     });    
 }
-
-
-//--------------------------------------------------------------------------------------
-// function stateChange(sample) {
-  
-   
-//     d3.json(`/search_state/${sample}`).then(function (data) {
-//         console.log(data);
-//         console.log(sample)
-//         sampleHolder = sample
-//         console.log(sampleHolder);
-//         let state_data = Object.values(data.state)
-//         console.log(state_data);
-    
-//         stateDemographic(sample);
-//         init_countyDemographic(sample, )
-//         // buildCharts();
-//         // countyDemographicUpdate(sample1, sample2)
-
-//     })
-
-
-// }
-    
-    //   countyDemographicUpdate(sample)
-   
-         
-
-        
 //--------------------------------------------------------------------------------------
 // Define a function that will create charts for given sample
 function buildCharts(sample) {
@@ -355,6 +326,17 @@ function buildCharts(sample) {
             }
           });
     }) //D3
+
+    // -----------------------------------------------------------------------------------
+    // Plotly Choropleth Mapbox Chart:
+    d3.json("/census-list").then(function (data) {
+
+      console.log(Object.values(data.state));
+      console.log(Object.values(data.avg_unemployment_rate));
+      let stateData = Object.values(data.state)
+      let unemploymentData = Object.values(data.avg_unemployment_rate)
+
+    }) //D3
 } //fuction buildCharts ends
 //-----------------------------------------------------------------------------------------
 function stateChanged(sample) {
@@ -367,19 +349,10 @@ function stateChanged(sample) {
     console.log(state_selector.options[state_selector.selectedIndex].value)
     state_value = state_selector.options[state_selector.selectedIndex].value
     console.log(state_value)
-    // console.log(d3.event.target)
+  
     
     stateDemographic(sample);
     init_countyDemographic(sample, county_idx)
-
-    // let county_selector = document.getElementById('selCountyDataset');
-    // console.log(county_selector.options[county_selector.selectedIndex].value)
-    // county_value = county_selector.options[county_selector.selectedIndex].value
-    // console.log(county_value)
-    // countyDemographicUpdate(state_value, county_value)
-
-
-    
 
     // buildCharts(sample);
     // countyDemographicUpdate(sample1, sample2)
@@ -395,11 +368,7 @@ function countyChanged(sample) {
    // Calling the select() function
   //  var a = d3.select("div").text();
 
-  // let state_selector = document.getElementById('selStateDataset');
-  // console.log(state_selector.options[state_selector.selectedIndex].value)
-  // state_value = state_selector.options[state_selector.selectedIndex].value
-   console.log(state_value)
-
+  console.log(state_value)
   
   // stateDemographic(sample);
   // init_countyDemographic(sample, county_idx)
@@ -408,6 +377,7 @@ function countyChanged(sample) {
   console.log(county_selector.options[county_selector.selectedIndex].value)
   county_value = county_selector.options[county_selector.selectedIndex].value
   console.log(county_value)
+
   countyDemographicUpdate(state_value, sample)
 
 
