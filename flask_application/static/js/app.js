@@ -336,6 +336,17 @@ function buildCharts(sample) {
       let stateData = Object.values(data.state)
       let unemploymentData = Object.values(data.avg_unemployment_rate)
 
+      var data = [{
+        type: "choroplethmapbox", name: "US states", geojson: "https://raw.githubusercontent.com/python-visualization/folium/master/examples/data/us-states.json", locations: stateData, z: unemploymentData,
+       zmin: 25, zmax: 280, colorbar: {y: 0, yanchor: "bottom", title: {text: "US states", side: "right"}}}
+        ];
+       
+       var layout = {mapbox: {style: "dark", center: {lon: -110, lat: 50}, zoom: 0.8}, width: 600, height: 400, margin: {t: 0, b: 0}};
+       
+       var config = {mapboxAccessToken: "API_KEY"};
+       
+       Plotly.newPlot('myDiv', data, layout, config);
+
     }) //D3
 } //fuction buildCharts ends
 //-----------------------------------------------------------------------------------------
@@ -353,9 +364,8 @@ function stateChanged(sample) {
     
     stateDemographic(sample);
     init_countyDemographic(sample, county_idx)
-
-    // buildCharts(sample);
-    // countyDemographicUpdate(sample1, sample2)
+    buildCharts(sample);
+   
 
  
    
