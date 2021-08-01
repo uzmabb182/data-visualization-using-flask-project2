@@ -45,6 +45,13 @@ update fips_code_data set county=trim(county)
 -- view from three tables
 SELECT * FROM fips_census_education;
 
+SELECT fips_code, state_abbr, state, county, population, median_age, household_income,
+per_capita_income, poverty_count, ROUND(poverty_rate,2) AS poverty_rate, ROUND(unemployment_rate,2) AS unemployment_rate,
+below_hs_diploma_2019, hs_diploma_2019, college_or_associate_2019,
+bachelors_or_higher_2019, percent_below_hs_diploma_2019, percent_hs_diploma_2019, 
+percent_college_or_associate_2019, percent_bachelors_or_higher_2019 
+FROM fips_census_education;
+
 --Quering from combined tables data
 SELECT state, ROUND(AVG(poverty_count),2) AS avg_poverty_count, ROUND(AVG(per_capita_income),2) AS avg_per_capita_income, 
 ROUND(AVG(bachelors_or_higher_2019),2) AS avg_bachelors_or_higher_2019
@@ -86,6 +93,18 @@ SELECT state_abbr, state,
         ROUND(AVG(bachelors_or_higher_2019), 2) AS avg_bachelors_or_higher_2019
         FROM fips_census_education
  		WHERE state = 'Alabama'
+		GROUP BY state_abbr, state
+        ORDER BY state;
+
+--Query for bar chart
+--Querying for state data
+SELECT state_abbr, state,
+        ROUND(AVG(per_capita_income), 2) AS avg_per_capita_income,
+        ROUND(AVG(percent_below_hs_diploma_2019), 2) AS percent_below_hs_diploma_2019,
+        ROUND(AVG(percent_hs_diploma_2019), 2) AS percent_hs_diploma_2019, 
+        ROUND(AVG(percent_college_or_associate_2019), 2) AS percent_college_or_associate_2019, 
+        ROUND(AVG(bachelors_or_higher_2019), 2) AS avg_bachelors_or_higher_2019
+        FROM fips_census_education
 		GROUP BY state_abbr, state
         ORDER BY state;
 
@@ -150,6 +169,8 @@ ORDER BY state;
 SELECT * FROM census_data
 WHERE (fips_code = 1001 AND median_age > 30);
 
+SELECT * FROM census_data c, education_data e
+where c.fips_code = e.fips_code
 
-
+select * from public.fips_census_education
 
