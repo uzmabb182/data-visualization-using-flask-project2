@@ -257,7 +257,7 @@ function buildCharts(sample) {
         Plotly.newPlot('bar', data, layout);      
     })
     //--------------------------------------------------------
-    // plotly scatter.js Chart
+    //plotly scatter.js Chart
     // d3.json("/bar-list").then(function (data) {
 
     //     // To read the values into an array
