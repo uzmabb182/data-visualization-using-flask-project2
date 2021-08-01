@@ -378,9 +378,36 @@ function buildCharts(sample) {
               display: true,
               text: 'US Census Analysis'
             }
+<<<<<<< HEAD
           }
         });
   }) //D3
+=======
+          });
+    }) //D3
+
+    // -----------------------------------------------------------------------------------
+    // Plotly Choropleth Mapbox Chart:
+    d3.json("/census-list").then(function (data) {
+
+      console.log(Object.values(data.state));
+      console.log(Object.values(data.avg_unemployment_rate));
+      let stateData = Object.values(data.state)
+      let unemploymentData = Object.values(data.avg_unemployment_rate)
+
+      var data = [{
+        type: "choroplethmapbox", name: "US states", geojson: "https://raw.githubusercontent.com/python-visualization/folium/master/examples/data/us-states.json", locations: stateData, z: unemploymentData,
+       zmin: 25, zmax: 280, colorbar: {y: 0, yanchor: "bottom", title: {text: "US states", side: "right"}}}
+        ];
+       
+       var layout = {mapbox: {style: "dark", center: {lon: -110, lat: 50}, zoom: 0.8}, width: 600, height: 400, margin: {t: 0, b: 0}};
+       
+       var config = {mapboxAccessToken: "API_KEY"};
+       
+       Plotly.newPlot('myDiv', data, layout, config);
+
+    }) //D3
+>>>>>>> 9f1f8e1d8b78bd2f130873da78d986889b6697d1
 } //fuction buildCharts ends
 //-----------------------------------------------------------------------------------------
 function stateChanged(sample) {
@@ -398,7 +425,11 @@ function stateChanged(sample) {
     stateDemographic(sample);
     init_countyDemographic(sample, county_idx)
     buildCharts(sample);
+<<<<<<< HEAD
  
+=======
+   
+>>>>>>> 9f1f8e1d8b78bd2f130873da78d986889b6697d1
 
  
    
@@ -408,6 +439,13 @@ function stateChanged(sample) {
 function countyChanged(sample) {
   // The parameter being passed in this function is new sample id from dropdown menu
   console.log(sample)
+<<<<<<< HEAD
+=======
+   // Calling the select() function
+  //  var a = d3.select("div").text();
+
+  console.log(state_value)
+>>>>>>> 9f1f8e1d8b78bd2f130873da78d986889b6697d1
   
   console.log(state_value) 
 
@@ -415,6 +453,17 @@ function countyChanged(sample) {
   console.log(county_selector.options[county_selector.selectedIndex].value)
   county_value = county_selector.options[county_selector.selectedIndex].value
   console.log(county_value)
+<<<<<<< HEAD
+=======
+
+  countyDemographicUpdate(state_value, sample)
+
+
+  
+
+  // buildCharts(sample);
+  // countyDemographicUpdate(sample1, sample2)
+>>>>>>> 9f1f8e1d8b78bd2f130873da78d986889b6697d1
 
   countyDemographicUpdate(state_value, sample)
 

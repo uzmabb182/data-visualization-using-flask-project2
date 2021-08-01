@@ -173,9 +173,14 @@ def plot_state(state):
     df8 = pd.read_sql(f"""SELECT state_abbr, state, county, 
         ROUND(per_capita_income,2) AS per_capita_income, 
         ROUND(median_age,2) AS median_age, 
+<<<<<<< HEAD
         ROUND(population,2) AS population, 
         ROUND(poverty_count,2) AS poverty_count,
         ROUND(percent_bachelors_or_higher_2019,2) AS percent_bachelors_or_higher_2019
+=======
+        ROUND(population,2) AS population, ROUND(poverty_count,2) AS poverty_count, 
+        ROUND(bachelors_or_higher_2019,2) AS bachelors_or_higher_2019
+>>>>>>> 9f1f8e1d8b78bd2f130873da78d986889b6697d1
         FROM fips_census_education 
         WHERE state = '{state}'
         ORDER BY county;
@@ -185,7 +190,10 @@ def plot_state(state):
     plot_state_results = df8.to_json()
     return plot_state_results    
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9f1f8e1d8b78bd2f130873da78d986889b6697d1
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
