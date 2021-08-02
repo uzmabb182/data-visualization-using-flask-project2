@@ -31,21 +31,17 @@ def plotly():
 @app.route('/leaflet')
 def map_leaf():
     return render_template('leaflet.html') 
-
-@app.route('/choropleth')
-def map_chloro():
-    return render_template('choropleth.html')       
-
+ 
 
 @app.route("/income-list")
 def income():
 
-    df1 = pd.read_sql("""SELECT state, ROUND(AVG(poverty_count),2) AS avg_poverty_count, 
-        ROUND(AVG(per_capita_income),2) AS avg_per_capita_income, 
-        ROUND(AVG(bachelors_or_higher_2019),2) AS avg_bachelors_or_higher_2019
+    df1 = pd.read_sql("""SELECT state, 
+        ROUND(AVG(poverty_count/population*100000)) AS avg_poverty_count, 
+        ROUND(AVG(bachelors_or_higher_2019/population*100000)) AS avg_bachelors_or_higher_2019
         FROM fips_census_education
-        GROUP BY state
-        ORDER BY state;""",conn)
+		Group BY state
+		ORDER BY state;""",conn)
 
     income_results = df1.to_json()
     return income_results
@@ -53,18 +49,14 @@ def income():
 @app.route("/census-list")
 def state():
 
-    df2 = pd.read_sql("""SELECT f.state, 
-        ROUND(AVG(v.per_capita_income),2) AS avg_per_capita_income, 
-        ROUND(AVG(v.median_age),2) AS avg_median_age, 
-        ROUND(AVG(v.population),2) AS avg_population, 
-        ROUND(AVG(v.poverty_count),2) AS avg_poverty_count, 
-        ROUND(AVG(v.unemployment_rate),2) AS avg_unemployment_rate, 
-        ROUND(AVG(v.bachelors_or_higher_2019),2) AS avg_bachelors_or_higher_2019
-        FROM fips_code_data AS f
-        JOIN census_education AS v
-        ON (f.fips_code = v.fips_code)
-        GROUP BY f.state
-        ORDER BY f.state;
+    df2 = pd.read_sql("""SELECT fips_code, state_abbr, state, county, 
+        population, median_age, household_income,
+        per_capita_income, poverty_count, ROUND(poverty_rate,2) AS poverty_rate,
+        ROUND(unemployment_rate,2) AS unemployment_rate,
+        below_hs_diploma_2019, hs_diploma_2019, college_or_associate_2019,
+        bachelors_or_higher_2019, percent_below_hs_diploma_2019, percent_hs_diploma_2019, 
+        percent_college_or_associate_2019, percent_bachelors_or_higher_2019 
+        FROM fips_census_education;     
         """,conn)
 
     census_results = df2.to_json()
@@ -73,14 +65,14 @@ def state():
 @app.route("/bar-list")
 def degree():
 
-    df3 = pd.read_sql("""SELECT fips_code, state_abbr, state, county, 
-        population, median_age, household_income,
-        per_capita_income, poverty_count, ROUND(poverty_rate,2) AS poverty_rate,
-        ROUND(unemployment_rate,2) AS unemployment_rate,
-        below_hs_diploma_2019, hs_diploma_2019, college_or_associate_2019,
-        bachelors_or_higher_2019, percent_below_hs_diploma_2019, percent_hs_diploma_2019, 
-        percent_college_or_associate_2019, percent_bachelors_or_higher_2019 
-        FROM fips_census_education;
+    df3 = pd.read_sql("""SELECT state, 
+		ROUND(SUM(below_hs_diploma_2019),2) AS below_hs_diploma_2019,
+		ROUND(SUM(hs_diploma_2019),2) AS hs_diploma_2019,
+		ROUND(SUM(college_or_associate_2019),2) AS college_or_associate_2019,
+		ROUND(SUM(bachelors_or_higher_2019),2) AS bachelors_or_higher_2019
+		FROM fips_census_education 
+		GROUP BY state
+		ORDER BY state;
         """,conn)
 
     
@@ -172,28 +164,16 @@ def plot_state(state):
    
     df8 = pd.read_sql(f"""SELECT state_abbr, state, county, 
         ROUND(per_capita_income,2) AS per_capita_income, 
-        ROUND(median_age,2) AS median_age, 
-<<<<<<< HEAD
-        ROUND(population,2) AS population, 
-        ROUND(poverty_count,2) AS poverty_count,
-        ROUND(percent_bachelors_or_higher_2019,2) AS percent_bachelors_or_higher_2019
-=======
-        ROUND(population,2) AS population, ROUND(poverty_count,2) AS poverty_count, 
-        ROUND(bachelors_or_higher_2019,2) AS bachelors_or_higher_2019
->>>>>>> 9f1f8e1d8b78bd2f130873da78d986889b6697d1
+        ROUND(percent_bachelors_or_higher_2019,2) AS percent_bachelors_or_higher_2019 
         FROM fips_census_education 
-        WHERE state = '{state}'
-        ORDER BY county;
+        WHERE state = '{state}';
          """,conn)
           
 
     plot_state_results = df8.to_json()
     return plot_state_results    
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 9f1f8e1d8b78bd2f130873da78d986889b6697d1
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
