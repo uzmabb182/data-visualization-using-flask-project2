@@ -11,6 +11,7 @@ function init() {
   
     d3.json("/state-list").then(function (data) {
         console.log(data);
+        // rand_state=Math.floor(Math.random() * 48);
         let state_data = Object.values(data.state)
         
         // To read the values into an array
@@ -188,39 +189,39 @@ function buildCharts(sample) {
     d3.json("/bar-list").then(function (data) {
 
         // console.log(Object.values(object1));
-        console.log(Object.values(data.state));
-        console.log(Object.values(data.below_hs_diploma_2019));
+        // console.log(Object.values(data.state));
+        // console.log(Object.values(data.below_hs_diploma_2019));
         let stateData = Object.values(data.state)
-        let degree1Data = Object.values(data.percent_below_hs_diploma_2019)
-        let degree2Data = Object.values(data.percent_hs_diploma_2019) 
-        let degree3Data = Object.values(data.percent_college_or_associate_2019) 
-        let degree4Data = Object.values(data.percent_bachelors_or_higher_2019)  
+        let degree1Data = Object.values(data.below_hs_diploma_2019)
+        let degree2Data = Object.values(data.hs_diploma_2019) 
+        let degree3Data = Object.values(data.college_or_associate_2019) 
+        let degree4Data = Object.values(data.bachelors_or_higher_2019)  
 
         var trace1 = {
             x: stateData,
             y: degree1Data,
-            name: 'percent_below_hs_diploma_2019',
+            name: 'below_hs_diploma_2019',
             type: 'bar'
             };
           
         var trace2 = {
             x: stateData,
             y: degree2Data,
-            name: 'percent_hs_diploma_2019',
+            name: 'hs_diploma_2019',
             type: 'bar'
             };
         
         var trace3 = {
             x: stateData,
             y: degree3Data,
-            name: 'percent_college_or_associate_2019',
+            name: 'college_or_associate_2019',
             type: 'bar'
             };
           
         var trace4 = {
             x: stateData,
             y: degree4Data,
-            name: 'percent_bachelors_or_higher_2019',
+            name: 'bachelors_or_higher_2019',
             type: 'bar'
             };
 
@@ -230,7 +231,7 @@ function buildCharts(sample) {
         
         var layout = {
           title: {
-            text:'Percentage of Education Vs Population in US',
+            text:'Level of Education by State (Person_Count)',
             font: {
               family: 'Courier New, monospace',
               size: 18
@@ -257,14 +258,13 @@ function buildCharts(sample) {
         Plotly.newPlot('bar', data, layout);      
     })
     //--------------------------------------------------------
-    //plotly scatter.js Chart
-    // d3.json("/bar-list").then(function (data) {
-
+    //plotly scatter plot Chart.js
+    // d3.json("/census-list").then(function (data) {
     //     // To read the values into an array
     //     // console.log(Object.values(object1));
-    //     console.log(Object.values(data.state));
-    //     console.log(Object.values(data.below_hs_diploma_2019));
-    //     let stateData = Object.values(data.state)
+    //     // console.log(Object.values(data.state));
+    //     // console.log(Object.values(data.below_hs_diploma_2019));
+    //     // let stateData = Object.values(data.state)
     //     let incomeData = Object.values(data.household_income) 
     //     let degree4Data = Object.values(data.percent_bachelors_or_higher_2019)  
         
@@ -274,7 +274,7 @@ function buildCharts(sample) {
       // console.log(Object.values(object1));
       console.log(Object.values(data.county));
   
-      let countyData = Object.values(data.county)
+      // let countyData = Object.values(data.county)
       let incomeData = Object.values(data.per_capita_income) 
       let degree4Data = Object.values(data.percent_bachelors_or_higher_2019)  
 
@@ -289,10 +289,10 @@ function buildCharts(sample) {
 
         var layout = {
           title: {
-            text:'Per Capita Income VS.Percent of Bachelors or Higher',
+            text:'Per Capita Income vs % of Bachelors Degree+',
             font: {
               family: 'Courier New, monospace',
-              size: 12
+              size: 14
             },
             xref: 'paper',
             x: 0.05,
@@ -309,7 +309,7 @@ function buildCharts(sample) {
           },
           yaxis: {
             title: {
-              text: 'Percent of Bachelors or Higher',
+              text: 'Percent of Bachelors Degree+',
               font: {
                 family: 'Courier New, monospace',
                 size: 18,
@@ -323,92 +323,50 @@ function buildCharts(sample) {
     })
 //--------------------------------------------------------------
     //Chart.js Line Chart
-    d3.json("/census-list").then(function (data) {
+    
+    d3.json("/income-list").then(function (data) {
 
       // console.log(Object.values(object1));
-      console.log(Object.values(data.state));
-      console.log(Object.values(data.avg_per_capita_income));
+      // console.log(Object.values(data.state));
+      // console.log(Object.values(data.avg_per_capita_income));
+
       let stateData = Object.values(data.state)
-      let incomeData = Object.values(data.avg_per_capita_income)
-      let ageData = Object.values(data.avg_median_age)
-      let populationData = Object.values(data.avg_population)
+      // let populationData = Object.values(data.avg_population)
       let povertyData = Object.values(data.avg_poverty_count)
-      let unemploymentData = Object.values(data.avg_unemployment_rate)
       let degreeData = Object.values(data.avg_bachelors_or_higher_2019)
       
       let lineChart = new Chart(document.getElementById("line-chart"), {
           type: 'line',
+          options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Poverty vs Bachelors Degree+ by State (Population Normalized to 100,000)'
+                }
+            }
+        },
+
           data: {
             labels: stateData,
             datasets: [{ 
-                data: incomeData,
-                label: "avg_per_capita_income",
-                borderColor: "#3e95cd",
-                fill: false
-              }, { 
-                data: ageData,
-                label: "avg_median_age",
-                borderColor: "#8e5ea2",
-                fill: false
-              }, { 
-                data: populationData,
-                label: "avg_population",
-                borderColor: "#3cba9f",
-                fill: false
-              }, { 
                 data: povertyData,
                 label: "avg_poverty_count",
-                borderColor: "#e8c3b9",
-                fill: false
-              }, { 
-                data: unemploymentData,
-                label: "avg_unemployment_rate",
-                borderColor: "#c45850",
+                borderColor: "red",
                 fill: false
               }, { 
                 data: degreeData,
                 label: "avg_bachelors_or_higher_2019",
-                borderColor: "#c45850",
+                borderColor: "blue",
                 fill: false
               }
             ]
-          },
-          options: {
-            title: {
-              display: true,
-              text: 'US Census Analysis'
-            }
-<<<<<<< HEAD
           }
+          
         });
   }) //D3
-=======
-          });
-    }) //D3
-
-    // -----------------------------------------------------------------------------------
-    // Plotly Choropleth Mapbox Chart:
-    d3.json("/census-list").then(function (data) {
-
-      console.log(Object.values(data.state));
-      console.log(Object.values(data.avg_unemployment_rate));
-      let stateData = Object.values(data.state)
-      let unemploymentData = Object.values(data.avg_unemployment_rate)
-
-      var data = [{
-        type: "choroplethmapbox", name: "US states", geojson: "https://raw.githubusercontent.com/python-visualization/folium/master/examples/data/us-states.json", locations: stateData, z: unemploymentData,
-       zmin: 25, zmax: 280, colorbar: {y: 0, yanchor: "bottom", title: {text: "US states", side: "right"}}}
-        ];
-       
-       var layout = {mapbox: {style: "dark", center: {lon: -110, lat: 50}, zoom: 0.8}, width: 600, height: 400, margin: {t: 0, b: 0}};
-       
-       var config = {mapboxAccessToken: "API_KEY"};
-       
-       Plotly.newPlot('myDiv', data, layout, config);
-
-    }) //D3
->>>>>>> 9f1f8e1d8b78bd2f130873da78d986889b6697d1
-} //fuction buildCharts ends
+}
+    
+ //fuction buildCharts ends
 //-----------------------------------------------------------------------------------------
 function stateChanged(sample) {
     // The parameter being passed in this function is new sample id from dropdown menu
@@ -424,14 +382,7 @@ function stateChanged(sample) {
     
     stateDemographic(sample);
     init_countyDemographic(sample, county_idx)
-    buildCharts(sample);
-<<<<<<< HEAD
- 
-=======
-   
->>>>>>> 9f1f8e1d8b78bd2f130873da78d986889b6697d1
-
- 
+    buildCharts(sample);    
    
 } 
 
@@ -439,13 +390,9 @@ function stateChanged(sample) {
 function countyChanged(sample) {
   // The parameter being passed in this function is new sample id from dropdown menu
   console.log(sample)
-<<<<<<< HEAD
-=======
-   // Calling the select() function
-  //  var a = d3.select("div").text();
 
   console.log(state_value)
->>>>>>> 9f1f8e1d8b78bd2f130873da78d986889b6697d1
+
   
   console.log(state_value) 
 
@@ -453,17 +400,6 @@ function countyChanged(sample) {
   console.log(county_selector.options[county_selector.selectedIndex].value)
   county_value = county_selector.options[county_selector.selectedIndex].value
   console.log(county_value)
-<<<<<<< HEAD
-=======
-
-  countyDemographicUpdate(state_value, sample)
-
-
-  
-
-  // buildCharts(sample);
-  // countyDemographicUpdate(sample1, sample2)
->>>>>>> 9f1f8e1d8b78bd2f130873da78d986889b6697d1
 
   countyDemographicUpdate(state_value, sample)
 
